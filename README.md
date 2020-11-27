@@ -1,6 +1,6 @@
 # life-note
 
-a simple app for reminder, and events.
+a simple web-app for reminder, and events.
 
 it consist of a django backend and a vue frontend .
 
