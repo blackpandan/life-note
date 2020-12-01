@@ -11,10 +11,17 @@
        </v-btn>
      </v-toolbar-items>
    </v-app-bar>
-   <v-navigation-drawer v-model="drawer" app color="purple">
-       <v-list nav>
+   <v-navigation-drawer v-model="drawer" app temporary color="grey lighten-4">
+       <v-list rounded>
            <v-list-item-group>
-               <v-list-item-content></v-list-item-content>
+             <v-list-item>
+               <v-list-item-icon>
+                 <v-icon>shopping_cart</v-icon>
+               </v-list-item-icon>
+               <v-list-item-content>
+                 <v-list-item-title>cart</v-list-item-title>
+               </v-list-item-content>
+             </v-list-item>
            </v-list-item-group>
        </v-list>
    </v-navigation-drawer>
