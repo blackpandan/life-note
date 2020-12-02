@@ -6,6 +6,8 @@ it consist of a django backend and a vue frontend .
 
 the frontend connects to the backend api which was created with django rest framework
 
+![Alt Text](https://dev-to-uploads.s3.amazonaws.com/i/57ug08w7l0dogdwd9vqn.png)
+
 ## for development:
 
 - first create a virtual environment
