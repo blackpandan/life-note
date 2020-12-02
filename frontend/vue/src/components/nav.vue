@@ -2,7 +2,7 @@
 <nav>
   <v-app-bar app dark color="purple accent-3" elevate-on-scroll>
      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-     <v-toolbar-title class="title"><span class="">Life</span><span class="grey--text text--lighten-4 font-weight-light">Note</span></v-toolbar-title>
+     <v-toolbar-title class="title"><span class="title">Life</span><span class="title grey--text text--lighten-3 font-weight-normal">Note</span></v-toolbar-title>
      <v-spacer></v-spacer>
      <v-toolbar-items>
        <v-btn dark color="purple accent-3" depressed>

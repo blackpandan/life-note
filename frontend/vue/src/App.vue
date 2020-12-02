@@ -25,3 +25,8 @@ export default {
   }),
 };
 </script>
+<style>
+*{
+  font-size: 15px;
+}
+</style>
