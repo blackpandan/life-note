@@ -4,9 +4,17 @@ a simple web-app for reminder, and events.
 
 it consist of a django backend and a vue frontend .
 
-the frontend connects to the backend api which was created with django rest framework
+the frontend connects to the backend api using axios.
+
+the backend api was created using Django Rest Framework
 
 ![Alt Text](https://dev-to-uploads.s3.amazonaws.com/i/57ug08w7l0dogdwd9vqn.png)
+
+![Alt Text](https://dev-to-uploads.s3.amazonaws.com/i/zsrg4292ccmqis17l74l.png)
+
+![Alt Text](https://dev-to-uploads.s3.amazonaws.com/i/l6zn4u5w04t030ylotnu.png)
+
+
 
 ## for development:
 
