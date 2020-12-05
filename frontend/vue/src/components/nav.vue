@@ -27,11 +27,12 @@
    </v-app-bar>
    <v-navigation-drawer v-model="drawer" app temporary color="grey lighten-4">
      <v-container fluid>
-       <v-avatar size="96"><v-img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="hey"></v-img></v-avatar>
+       <v-avatar size="96"><v-img src="../assets/head.png" alt="hey"></v-img></v-avatar>
        <v-card flat class="grey lighten-4">
          <v-card-title class="ma-0 pa-2 ">anonymous</v-card-title>
          <v-card-subtitle class="pa-0 pa-2">login@gmail.com</v-card-subtitle>
        </v-card>
+       <v-divider color="font-size-5 purple accent-3"></v-divider>
      </v-container>
        <v-list rounded>
            <v-list-item-group>
@@ -45,7 +46,8 @@
                  </v-list-item-title>
                </v-list-item-content>
              </v-list-item>
-             <v-list-item>
+
+             <v-list-item to="/tasks">
                <v-list-item-icon>
                  <v-icon>event</v-icon>
                </v-list-item-icon>
@@ -53,7 +55,8 @@
                  <v-list-item-title>Tasks</v-list-item-title>
                </v-list-item-content>
              </v-list-item>
-             <v-list-item>
+
+             <v-list-item to="/projects">
                <v-list-item-icon>
                  <v-icon>assignment</v-icon>
                </v-list-item-icon>
@@ -63,7 +66,8 @@
                  </v-list-item-title>
                </v-list-item-content>
              </v-list-item>
-             <v-list-item>
+
+             <v-list-item to="/login">
                <v-list-item-icon>
                  <v-icon>login</v-icon>
                </v-list-item-icon>
