@@ -82,11 +82,11 @@
           <br>
           <v-row>
             <v-btn small dark color="#F9D500">
-              <span>cotinue</span>
+              <span class="cus-b">cotinue</span>
             </v-btn>
          <v-spacer></v-spacer>
           <v-btn small class="error">
-            <span>delete</span>
+            <span class="cus-b">delete</span>
           </v-btn>
            </v-row>
           </v-column>
