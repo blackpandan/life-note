@@ -10,9 +10,9 @@ the backend api was created using Django Rest Framework
 
 ![Alt Text](https://dev-to-uploads.s3.amazonaws.com/i/57ug08w7l0dogdwd9vqn.png)
 
-<<<<<<< HEAD
+
 ## for development
-=======
+
 ![Alt Text](https://dev-to-uploads.s3.amazonaws.com/i/zsrg4292ccmqis17l74l.png)
 
 ![Alt Text](https://dev-to-uploads.s3.amazonaws.com/i/l6zn4u5w04t030ylotnu.png)
@@ -20,7 +20,6 @@ the backend api was created using Django Rest Framework
 
 
 ## for development:
->>>>>>> 9f27657000d69d4715f596e731afd580d6ad4e2b
 
 - first create a virtual environment
 
