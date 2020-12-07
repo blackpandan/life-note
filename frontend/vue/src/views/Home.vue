@@ -1,12 +1,15 @@
 <template>
   <div>
     <h1 class="subtitle-1 grey--text text--darken-1">Welcome!</h1>
-    <div class>
+
+    <!-- Action Panel -->
+    <div>
       <v-card flat small class="pa-0 px-6 py-2 grey lighten-4 border-radius-lg">
         <v-row class="pa-0">
-          <v-card-title class="cus-e pa-0 font-weight-regular">Add Events</v-card-title>
+          <v-card-title class="addEvents__text pa-0 font-weight-regular">Add Events</v-card-title>
           <v-spacer></v-spacer>
 
+          <!-- Dialog For Adding New Event, Project or Reminder -->
           <v-dialog v-model="dialog" width="59vw">
             <template v-slot:activator="{on, attrs}">
               <v-card-actions class="pa-0">
@@ -24,7 +27,8 @@
                 </v-btn>
               </v-card-actions>
             </template>
-
+            
+            <!-- Dialog form -->
             <v-card>
               <v-form>
                 <v-container fluid>
@@ -43,43 +47,51 @@
       <br />
       <v-divider></v-divider>
       <br />
+
+      <!-- Activity Area-->
       <v-expansion-panels focusable>
+        <!--Model For Ongoing Activity-->
         <v-expansion-panel>
-          <v-expansion-panel-header class="cus-h text-capitalize font-weight-light">
+          
+          <v-expansion-panel-header class="expansionPanel__header text-capitalize font-weight-light">
             go to the doctor
             <template v-slot:actions>
               <v-icon color="purple accent-3">$expand</v-icon>
             </template>
           </v-expansion-panel-header>
+          
           <v-divider></v-divider>
+          
           <v-expansion-panel-content>
+            
             <v-column>
               <br />
-              <p class="cus-p">i need to go to the doctor for my eye checkup</p>
+              <p class="expansionPanel__text">i need to go to the doctor for my eye checkup</p>
               <br />
               <v-row>
                 <v-btn small dark color="#24F900">
-                  <span class="cus-b">done</span>
+                  <span class="expansionPanel__button-text">done</span>
                 </v-btn>
                 <v-spacer></v-spacer>
                 <v-btn small dark color="#F9D500">
-                  <span class="cus-b">pause</span>
+                  <span class="expansionPanel__button-text">pause</span>
                 </v-btn>
                 <v-btn small class="error ml-3">
-                  <span class="cus-b">delete</span>
+                  <span class="expansionPanel__button-text">delete</span>
                 </v-btn>
               </v-row>
             </v-column>
+          
           </v-expansion-panel-content>
         </v-expansion-panel>
+        
+        <!-- Model For Paused Activity -->
         <v-expansion-panel class="pause">
           <v-expansion-panel-header
-            class="cus-h text-capitalize font-weight-regular"
+            class="expansionPanel__header text-capitalize font-weight-regular"
             disable-icon-rotate
           >
             <span class="pause-text">go to the doctor</span>
-            <!-- <v-spacer></v-spacer> -->
-            <!-- <v-icon class="pause-text">pause</v-icon> -->
             <template v-slot:actions>
               <v-icon color="#F9D500">pause</v-icon>
             </template>
@@ -88,23 +100,26 @@
           <v-expansion-panel-content>
             <v-column>
               <br />
-              <p class="cus-p">i need to go to the doctor for my eye checkup</p>
+              <p class="expansionPanel__text">i need to go to the doctor for my eye checkup</p>
               <br />
               <v-row>
                 <v-btn small dark color="#F9D500">
-                  <span class="cus-b">cotinue</span>
+                  <span class="expansionPanel__button-text">cotinue</span>
                 </v-btn>
                 <v-spacer></v-spacer>
                 <v-btn small class="error">
-                  <span class="cus-b">delete</span>
+                  <span class="expansionPanel__button-text">delete</span>
                 </v-btn>
               </v-row>
             </v-column>
           </v-expansion-panel-content>
         </v-expansion-panel>
+        
+        <!-- Model For Finished Activity -->
         <v-expansion-panel class="complete">
+          
           <v-expansion-panel-header
-            class="cus-h text-capitalize font-weight-regular"
+            class="expansionPanel__header text-capitalize font-weight-regular"
             disable-icon-rotate
           >
             <span class="complete-text">go to the doctor</span>
@@ -112,23 +127,26 @@
               <v-icon color="#24F900">check</v-icon>
             </template>
           </v-expansion-panel-header>
+          
           <v-divider></v-divider>
+          
           <v-expansion-panel-content>
             <v-column>
               <br />
-              <p class="cus-p">i need to go to the doctor for my eye checkup</p>
+              <p class="expansionPanel__text">i need to go to the doctor for my eye checkup</p>
               <br />
               <v-row>
                 <v-btn small dark color="#24F900" depressed>
-                  <span class="cus-b">complete</span>
+                  <span class="expansionPanel__button-text">complete</span>
                 </v-btn>
                 <v-spacer></v-spacer>
                 <v-btn small class="error">
-                  <span class="cus-b">delete</span>
+                  <span class="expansionPanel__button-text">delete</span>
                 </v-btn>
               </v-row>
             </v-column>
           </v-expansion-panel-content>
+        
         </v-expansion-panel>
       </v-expansion-panels>
     </div>
@@ -139,7 +157,9 @@
 export default {
   data() {
     return {
+      // controller for dialog visibility
       dialog: false,
+      //items for dialog form, type chooser
       items: ["project", "event", "todo"],
     };
   },
@@ -148,20 +168,25 @@ export default {
 
 <style lang="scss" scoped>
 $green: #24f900;
-.cus {
-  &-h {
+  .expansionPanel {
+    &__header{
     font-size: 1.1em;
   }
-  &-p {
+  
+  &__text {
     font-size: 1em;
   }
-  &-b {
+  &__button {
+    &-text{
     font-size: 0.8em;
+    }
   }
-  &-e {
+  }
+.addEvents {
+    &__text{
     font-size: 1em;
+    }
   }
-}
 .pause {
   border-left: 0.2em solid #f9d500;
   &-text {
