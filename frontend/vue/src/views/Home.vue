@@ -44,16 +44,13 @@
           </v-dialog>
         </v-row>
       </v-card>
-      <br />
-      <v-divider></v-divider>
-      <br />
 
       <!-- Activity Area-->
-      <v-expansion-panels focusable>
+      <v-expansion-panels focusable class="mt-9">
         <!--Model For Ongoing Activity-->
         <v-expansion-panel>
           
-          <v-expansion-panel-header class="expansionPanel__header text-capitalize font-weight-light">
+          <v-expansion-panel-header class="expansionPanel__header text-capitalize topExpansionPanel font-weight-light">
             go to the doctor
             <template v-slot:actions>
               <v-icon color="purple accent-3">$expand</v-icon>
@@ -168,6 +165,9 @@ export default {
 
 <style lang="scss" scoped>
 $green: #24f900;
+.topExpansionPanel{
+  border-top: 2px solid #d500f9;
+}
   .expansionPanel {
     &__header{
     font-size: 1.1em;
