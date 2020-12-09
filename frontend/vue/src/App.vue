@@ -27,6 +27,9 @@ export default {
 </script>
 <style>
 *{
+  font-size: 15px ;
+}
+body{
   font-size: 15px;
 }
 </style>

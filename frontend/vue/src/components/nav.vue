@@ -110,7 +110,7 @@ export default {
   data() {
     return {
       // This controls the drawer visibility
-      drawer: true,
+      drawer: false,
     };
   },
 };

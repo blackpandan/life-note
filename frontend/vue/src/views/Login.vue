@@ -7,13 +7,13 @@
 
       <v-divider></v-divider>
       <!-- For Login Form -->
-      <v-form class="mt-6">
-        <v-text-field label="email" prepend-inner-icon="email" :rules=[rules.required] v-model="email"></v-text-field>
-        <v-text-field label="first name" prepend-inner-icon="person"></v-text-field>
-        <v-text-field label="password" prepend-inner-icon="lock" :rules="[rules.required, rules.maxlength]"></v-text-field>
+      <v-form class="mt-6" ref="form" v-model="formValidity">
+        <v-text-field label="email" prepend-icon="email" type="email" :rules="emailRules" v-model="email" outlined class="subtitle-2 tre" dense></v-text-field>
+        <v-text-field label="first name" prepend-icon="person" class="mt-5 tre" outlined dense></v-text-field>
+        <v-text-field label="password" prepend-icon="lock" :append-icon="passwordVisibility ? 'visibility' : 'visibility_off'" @click:append="passwordVisibility = !passwordVisibility" :counter="10" :rules="passwordRules" :type="passwordVisibility ? 'password' : 'text' " v-model="password" class="mt-5" outlined dense></v-text-field>
         <!-- for the login button-->
-        <v-row justify="center mt-2">
-        <v-btn dark class="mt-2 purple accent-3 rounded-lg elevation-1" >
+        <v-row justify="center" class="mt-2">
+        <v-btn dark class="mt-2 purple accent-3 rounded-lg elevation-1" v-on:click="submitForm">
           <span>login</span>
         </v-btn>
         </v-row>
@@ -31,9 +31,31 @@
 export default {
 data(){
   return {
-    rules:{
-        required: value => !!value || "Required",
-        maxLength: value => value < 6 || "Password must be more than 6 digits" 
+    passwordVisibility: true,
+    formValidity: true,
+    passwordRules: [
+     value => !!value || "Required",
+     value => value.length >= 6 || "Password must not be less than 6 digits"
+
+    ],
+    emailRules: [
+      value => !!value || "Required",
+      value => /.@.[\S]/.test(value) || "email is not valid"
+    ],
+    email: "",
+    password: "",
+    }
+  },
+  methods: {
+   
+    submitForm: function(){
+      console.log("started")
+    this.formValidity = this.$refs.form.validate();
+      if(this.formValidity == true){
+        console.log(`email: ${this.email}`)
+        console.log(`password: ${this.password}`)
+      }else{
+        console.log("failure")
       }
     }
   }
@@ -41,5 +63,8 @@ data(){
 </script>
 
 <style>
+.tre{
+  font-size: 2px !important
+}
 
 </style>
