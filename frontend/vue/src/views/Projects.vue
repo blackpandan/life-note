@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-expansion-panels>
       <v-expansion-panel v-for="(project, i) in projects" :key="i">
-        <v-expansion-panel-header class="subtitle-2">{{ project.title }}-{{ i+1 }}</v-expansion-panel-header>
+        <v-expansion-panel-header v-on:click="project.done = true" class="subtitle-2">{{ project.title }}-{{ i+1 }}</v-expansion-panel-header>
         <v-divider></v-divider>
         <v-expansion-panel-content>
           <p class="mt-6">
@@ -23,17 +23,20 @@ data(){
       {
         title: "Portfolio",
         body: "Create a portfolio for yourself it should contain all your works and updates itself",
-        time: "30 dec 2020"
+        time: "30 dec 2020",
+        done: false
       },
        {
         title: "Portfolio",
         body: "Create a portfolio for yourself it should contain all your works and updates itself",
-        time: "30 dec 2020"
+        time: "30 dec 2020",
+        done: false
       },
        {
         title: "Portfolio",
         body: "Create a portfolio for yourself it should contain all your works and updates itself",
-        time: "30 dec 2020"
+        time: "30 dec 2020",
+        done: false
       }
     ]
   }
