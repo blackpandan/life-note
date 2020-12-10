@@ -48,12 +48,14 @@
       <!-- Activity Area-->
       <v-expansion-panels focusable class="mt-9">
         <!--Model For Ongoing Activity-->
-        <v-expansion-panel>
+        <v-expansion-panel v-for="(project, i) in projects" :key="i" :class="{'topExpansionPanel': i==0, 'pause':project.pause, 'complete':project.done}" >
           
-          <v-expansion-panel-header class="expansionPanel__header text-capitalize topExpansionPanel font-weight-light">
-            go to the doctor
+          <v-expansion-panel-header class="expansionPanel__header text-capitalize  font-weight-regular" :disable-icon-rotate="iconRotate(project.done, project.pause)">
+            <span :class="{'complete-text': project.done, 'pause-text':project.pause}">go to the doctor</span>
             <template v-slot:actions>
-              <v-icon color="purple accent-3">$expand</v-icon>
+              <v-icon color="purple accent-3" v-if="iconShow(project.done, project.pause)">$expand</v-icon>
+              <v-icon color="#F9D500" v-if="project.pause">pause</v-icon>
+              <v-icon color="#24F900" v-if="project.done">check</v-icon>
             </template>
           </v-expansion-panel-header>
           
@@ -66,11 +68,15 @@
               <p class="expansionPanel__text">i need to go to the doctor for my eye checkup</p>
               <br />
               <v-row>
-                <v-btn small dark color="#24F900">
-                  <span class="expansionPanel__button-text">done</span>
+                <v-btn small dark color="#24F900" v-on:click="project.done = !project.done" :depressed="project.done" v-if="!project.pause">
+                  <span class="expansionPanel__button-text" v-if="!project.done">done</span>
+                  <span class="expansionPanel__button-text" v-if="project.done">complete</span>
+                </v-btn>
+                 <v-btn small dark color="#F9D500" v-if="project.pause" v-on:click="project.pause = !project.pause">
+                  <span class="expansionPanel__button-text">cotinue</span>
                 </v-btn>
                 <v-spacer></v-spacer>
-                <v-btn small dark color="#F9D500">
+                <v-btn small dark color="#F9D500" v-on:click="project.pause = !project.pause" v-if="pauseAndDone(project.done, project.pause)">
                   <span class="expansionPanel__button-text">pause</span>
                 </v-btn>
                 <v-btn small class="error ml-3">
@@ -80,70 +86,6 @@
             </v-column>
           
           </v-expansion-panel-content>
-        </v-expansion-panel>
-        
-        <!-- Model For Paused Activity -->
-        <v-expansion-panel class="pause">
-          <v-expansion-panel-header
-            class="expansionPanel__header text-capitalize font-weight-regular"
-            disable-icon-rotate
-          >
-            <span class="pause-text">go to the doctor</span>
-            <template v-slot:actions>
-              <v-icon color="#F9D500">pause</v-icon>
-            </template>
-          </v-expansion-panel-header>
-          <v-divider></v-divider>
-          <v-expansion-panel-content>
-            <v-column>
-              <br />
-              <p class="expansionPanel__text">i need to go to the doctor for my eye checkup</p>
-              <br />
-              <v-row>
-                <v-btn small dark color="#F9D500">
-                  <span class="expansionPanel__button-text">cotinue</span>
-                </v-btn>
-                <v-spacer></v-spacer>
-                <v-btn small class="error">
-                  <span class="expansionPanel__button-text">delete</span>
-                </v-btn>
-              </v-row>
-            </v-column>
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-        
-        <!-- Model For Finished Activity -->
-        <v-expansion-panel class="complete">
-          
-          <v-expansion-panel-header
-            class="expansionPanel__header text-capitalize font-weight-regular"
-            disable-icon-rotate
-          >
-            <span class="complete-text">go to the doctor</span>
-            <template v-slot:actions>
-              <v-icon color="#24F900">check</v-icon>
-            </template>
-          </v-expansion-panel-header>
-          
-          <v-divider></v-divider>
-          
-          <v-expansion-panel-content>
-            <v-column>
-              <br />
-              <p class="expansionPanel__text">i need to go to the doctor for my eye checkup</p>
-              <br />
-              <v-row>
-                <v-btn small dark color="#24F900" depressed>
-                  <span class="expansionPanel__button-text">complete</span>
-                </v-btn>
-                <v-spacer></v-spacer>
-                <v-btn small class="error">
-                  <span class="expansionPanel__button-text">delete</span>
-                </v-btn>
-              </v-row>
-            </v-column>
-          </v-expansion-panel-content>
-        
         </v-expansion-panel>
       </v-expansion-panels>
     </div>
@@ -158,8 +100,54 @@ export default {
       dialog: false,
       //items for dialog form, type chooser
       items: ["project", "event", "todo"],
+      projects:[ 
+        {
+        title: "first",
+        body: "sfdffsf sg  ",
+        done: false,
+        pause: false
+        },
+        {
+        title: "second",
+        body: "vavv gas af ",
+        done: false,
+        pause: false
+        },
+        {
+        title: "third",
+        body: "ardcadsa ",
+        done: false,
+        pause: false
+        }
+      ]
     };
   },
+  methods:{
+   pauseAndDone(done, pause){
+      if(!done == false || !pause == false){
+        return false
+      }
+        return true
+    },
+  iconShow(done, pause){
+    
+    if(!done == false || !pause == false){
+      console.log("show")
+      return false
+    }else{
+      return true
+    }
+  },
+  iconRotate(done, pause){
+    
+    if(!done == false || !pause == false){
+      console.log("pause")
+      return true
+    }
+      return false
+    
+  }
+  }
 };
 </script>
 
