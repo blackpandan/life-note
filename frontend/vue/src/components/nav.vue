@@ -72,15 +72,6 @@
             </v-list-item-content>
           </v-list-item>
 
-          <v-list-item to="/tasks">
-            <v-list-item-icon>
-              <v-icon>event</v-icon>
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title>Tasks</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-
           <v-list-item to="/projects">
             <v-list-item-icon>
               <v-icon>assignment</v-icon>
