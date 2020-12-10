@@ -1,14 +1,14 @@
 <template>
   <v-container fluid>
     <v-expansion-panels>
-      <v-expansion-panel>
-        <v-expansion-panel-header class="subtitle-2">YO</v-expansion-panel-header>
+      <v-expansion-panel v-for="(project, i) in projects" :key="i">
+        <v-expansion-panel-header class="subtitle-2">{{ project.title }}-{{ i+1 }}</v-expansion-panel-header>
         <v-divider></v-divider>
         <v-expansion-panel-content>
           <p class="mt-6">
-            This if fir testing out the new projects page
+            {{ project.body }}
           </p>
-          <p class="grey--text mt-6">time: 12pm</p>
+          <p class="grey--text mt-6">time: {{ project.time }}</p>
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>
@@ -17,7 +17,27 @@
 
 <script>
 export default {
-
+data(){
+  return {
+    projects: [
+      {
+        title: "Portfolio",
+        body: "Create a portfolio for yourself it should contain all your works and updates itself",
+        time: "30 dec 2020"
+      },
+       {
+        title: "Portfolio",
+        body: "Create a portfolio for yourself it should contain all your works and updates itself",
+        time: "30 dec 2020"
+      },
+       {
+        title: "Portfolio",
+        body: "Create a portfolio for yourself it should contain all your works and updates itself",
+        time: "30 dec 2020"
+      }
+    ]
+  }
+}
 }
 </script>
 
