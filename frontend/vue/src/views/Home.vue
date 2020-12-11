@@ -51,7 +51,7 @@
         <v-expansion-panel v-for="(project, i) in projects" :key="i" :class="{'topExpansionPanel': i==0, 'pause':project.pause, 'complete':project.done}" >
           
           <v-expansion-panel-header class="expansionPanel__header text-capitalize  font-weight-regular" :disable-icon-rotate="iconRotate(project.done, project.pause)">
-            <span :class="{'complete-text': project.done, 'pause-text':project.pause}">go to the doctor</span>
+            <span :class="{'complete-text': project.done, 'pause-text':project.pause}">{{ project.title }}</span>
             <template v-slot:actions>
               <v-icon color="purple accent-3" v-if="iconShow(project.done, project.pause)">$expand</v-icon>
               <v-icon color="#F9D500" v-if="project.pause">pause</v-icon>
@@ -65,7 +65,7 @@
             
             <v-column>
               <br />
-              <p class="expansionPanel__text">i need to go to the doctor for my eye checkup</p>
+              <p class="expansionPanel__text">{{ project.body }}</p>
               <br />
               <v-row>
                 <v-btn small dark color="#24F900" v-on:click="project.done = !project.done" :depressed="project.done" v-if="!project.pause">
@@ -142,6 +142,7 @@ export default {
     axios(config).then(res=>{
       this.projects = res.data;
       console.log(res);
+      console.log(this.projects)
     }).catch(err=>{
       console.log(err);
     })
