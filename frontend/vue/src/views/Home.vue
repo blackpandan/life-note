@@ -79,7 +79,7 @@
                 <v-btn small dark color="#F9D500" v-on:click="project.pause = !project.pause" v-if="pauseAndDone(project.done, project.pause)">
                   <span class="expansionPanel__button-text">pause</span>
                 </v-btn>
-                <v-btn small class="error ml-3">
+                <v-btn small class="error ml-3" v-on:click="del(project.id)">
                   <span class="expansionPanel__button-text">delete</span>
                 </v-btn>
               </v-row>
@@ -107,6 +107,15 @@ export default {
     };
   },
   methods:{
+    del(id){
+      let peo = this.projects
+      for(let i=0; i<peo.length; i++){
+        if(peo[i].id == id){
+          this.projects.splice(i, 1)
+          console.log("deleted")
+        }
+      }
+    },
    pauseAndDone(done, pause){
       if(!done == false || !pause == false){
         return false
