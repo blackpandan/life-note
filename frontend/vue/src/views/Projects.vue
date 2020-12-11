@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <v-expansion-panels>
-      <v-expansion-panel v-for="(project, i) in projects" :key="i">
+      <v-expansion-panel v-for="(project, i) in projectsin()" :key="i">
         <v-expansion-panel-header v-on:click="project.done = true" class="subtitle-2">{{ project.title }}-{{ i+1 }}</v-expansion-panel-header>
         <v-divider></v-divider>
         <v-expansion-panel-content>
@@ -16,30 +16,35 @@
 </template>
 
 <script>
+var axios= require("axios");
 export default {
 data(){
   return {
     projects: [
-      {
-        title: "Portfolio",
-        body: "Create a portfolio for yourself it should contain all your works and updates itself",
-        time: "30 dec 2020",
-        done: false
-      },
-       {
-        title: "Portfolio",
-        body: "Create a portfolio for yourself it should contain all your works and updates itself",
-        time: "30 dec 2020",
-        done: false
-      },
-       {
-        title: "Portfolio",
-        body: "Create a portfolio for yourself it should contain all your works and updates itself",
-        time: "30 dec 2020",
-        done: false
-      }
     ]
   }
+},
+methods:{
+projectsin(){
+  let projects = this.projects;
+  let newPro = projects.filter(p => {
+    let d = new Date(p.time)
+    return p.time = `${d.toUTCString()}`;
+  })
+  console.log(newPro)
+  return newPro;
+}
+},
+created(){
+  let config = {
+    url : "http://localhost:8000/",
+    method: "GET"
+  };
+axios(config).then(res=>{
+  this.projects = res.data
+}).catch(err=>{
+  console.log(`this is the error : ${err}`)
+});
 }
 }
 </script>

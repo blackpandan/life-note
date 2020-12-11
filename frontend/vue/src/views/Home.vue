@@ -93,6 +93,7 @@
 </template>
 
 <script>
+var axios = require('axios');
 export default {
   data() {
     return {
@@ -101,24 +102,7 @@ export default {
       //items for dialog form, type chooser
       items: ["project", "event", "todo"],
       projects:[ 
-        {
-        title: "first",
-        body: "sfdffsf sg  ",
-        done: false,
-        pause: false
-        },
-        {
-        title: "second",
-        body: "vavv gas af ",
-        done: false,
-        pause: false
-        },
-        {
-        title: "third",
-        body: "ardcadsa ",
-        done: false,
-        pause: false
-        }
+        
       ]
     };
   },
@@ -147,6 +131,21 @@ export default {
       return false
     
   }
+  },
+  created() {
+    let config = {
+      url: "http://localhost:8000/todos-all",
+      method: "GET"
+    };
+    console.log(config);
+    
+    axios(config).then(res=>{
+      this.projects = res.data;
+      console.log(res);
+    }).catch(err=>{
+      console.log(err);
+    })
+
   }
 };
 </script>
