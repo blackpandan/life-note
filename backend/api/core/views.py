@@ -14,9 +14,12 @@ from .models import Todo, Project
 # views
 @api_view(['GET'])
 def get_all_todos(request):
-    data = Todo.objects.all()
-    serial = TodoSerializer(data, many=True)
-    return Response(serial.data)
+    try:
+        data = Todo.objects.all()
+        serial = TodoSerializer(data, many=True)
+        return Response(serial.data)
+    except:
+        return Response(request, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET'])
 def get_all_projects(request):
