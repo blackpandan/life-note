@@ -6,3 +6,8 @@ class Todo(models.Model):
     body=models.CharField(max_length=225)
     done=models.BooleanField(default=False)
     pause=models.BooleanField(default=False)
+
+class Project(models.Model):
+    title=models.CharField(max_length=255)
+    body=models.TextField()
+    time = models.DateTimeField(auto_now_add=True)
