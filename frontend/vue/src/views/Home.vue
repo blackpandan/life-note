@@ -79,7 +79,7 @@
                 <v-btn small dark color="#F9D500" v-on:click="project.pause = !project.pause" v-if="pauseAndDone(project.done, project.pause)">
                   <span class="expansionPanel__button-text">pause</span>
                 </v-btn>
-                <v-btn small class="error ml-3" v-on:click="del(project.id)">
+                <v-btn small class="error ml-3" v-on:click="del(project.id)" :loading="loading" >
                   <span class="expansionPanel__button-text">delete</span>
                 </v-btn>
               </v-row>
@@ -101,20 +101,40 @@ export default {
       dialog: false,
       //items for dialog form, type chooser
       items: ["project", "event", "todo"],
+      loading: false,
       projects:[ 
         
       ]
     };
   },
   methods:{
-    del(id){
-      let peo = this.projects
-      for(let i=0; i<peo.length; i++){
-        if(peo[i].id == id){
-          this.projects.splice(i, 1)
-          console.log("deleted")
+    del(pk){
+        function localDel(projects){
+          let peo = projects
+          for(let i=0; i<peo.length; i++){
+          if(peo[i].id == pk){
+            projects.splice(i, 1)
+            console.log("deleted")
+          }
         }
-      }
+        }
+        this.loading = true;
+        let config = {
+          url: `http://localhost:8000/delete/todo/${pk}`,
+          method: "POST"
+        }
+        axios(config).then(res=>{
+          console.log("deleted sucessfully")
+          console.log(res)
+          localDel(this.projects);
+          setTimeout(() => this.loading = false, 1000)
+        }).catch(err=>{
+          console.log(err)
+          setTimeout(() => this.loading = false, 1000)
+        })
+
+      
+      
     },
    pauseAndDone(done, pause){
       if(!done == false || !pause == false){
