@@ -68,10 +68,10 @@
               <p class="expansionPanel__text">{{ project.body }}</p>
               <br />
               <v-row>
-                <v-btn small dark color="#24F900" v-on:click="project.done = !project.done" :depressed="project.done" v-if="!project.pause">
-                  <span class="expansionPanel__button-text" v-if="!project.done">done</span>
-                  <span class="expansionPanel__button-text" v-if="project.done">complete</span>
+                <v-btn small dark color="#24F900" v-on:click="project.done = !project.done" :depressed="project.done" v-if="pauseAndDone(project.done, project.pause)">
+                  <span class="expansionPanel__button-text">done</span>
                 </v-btn>
+                <p class="expansionPanel__text pl-5 grey--text font-weight-bold text-uppercase" v-if="project.done">completed</p>
                  <v-btn small dark color="#F9D500" v-if="project.pause" v-on:click="project.pause = !project.pause">
                   <span class="expansionPanel__button-text">cotinue</span>
                 </v-btn>
@@ -215,7 +215,7 @@ $green: #24f900;
   border-left: 0.2em solid $green;
   // background-color: black;
   &-text {
-    color: $green;
+    color: darken($color: $green, $amount: 8);
   }
 }
 </style>
