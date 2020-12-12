@@ -26,3 +26,12 @@ def get_all_projects(request):
     data = Project.objects.all()
     serial = ProjectSerializer(data, many=True)
     return Response(serial.data)
+
+@api_view(['POST','PUT'])
+def delete_todo(request, pk):
+    try:
+        data = Todo.objects.get(pk=pk)
+        data.delete()
+        return Response("completed")
+    except:
+        return Response("sorry", status=status.HTTP_400_BAD_REQUEST)
