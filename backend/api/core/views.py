@@ -47,6 +47,7 @@ def modify_projects(request, id):
             name = request.data['title']
             details = request.data['details']
             time = request.data['time']
+            model = Project.objects.get(pk=id)
             return Response("tested")
         except KeyError as e:
             return Response("please provide required field", status=status.HTTP_428_PRECONDITION_REQUIRED)
