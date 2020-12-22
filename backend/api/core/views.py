@@ -1,6 +1,7 @@
 # for django imports
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.db.models import ObjectDoesNotExist
 
 #for rest_framework imprts
 from rest_framework.decorators import api_view
@@ -37,7 +38,7 @@ def get_all_projects(request):
             new.save()
             return Response("sucessfully added", status=status.HTTP_201_CREATED)
         except KeyError as e:
-            return Response(f"required field is missing", status=status.HTTP_428_PRECONDITION_REQUIRED)
+            return Response(f"required field ==> {e}, is missing", status=status.HTTP_428_PRECONDITION_REQUIRED)
 
 
 @api_view(["PUT"])
@@ -49,9 +50,12 @@ def modify_projects(request, id):
             model = Project.objects.get(pk=id)
             model.title=name
             model.details=details
+            model.save()
             return Response("tested")
         except KeyError as e:
-            return Response("please provide required field", status=status.HTTP_428_PRECONDITION_REQUIRED)
+            return Response(f"please provide {e} field", status=status.HTTP_428_PRECONDITION_REQUIRED)
+        except Project.DoesNotExist as e:
+            return Response(f"project does not exist, provide valid id", status=status.HTTP_404_NOT_FOUND)
 
 @api_view(['POST','PUT'])
 def delete_todo(request, pk):
