@@ -12,7 +12,10 @@ from rest_framework import status
 from .serializers import TodoSerializer, ProjectSerializer
 from .models import Todo, Project
 
+
 # views
+
+#this is for the todo request handling configuration
 @api_view(['GET', 'POST'])
 def get_all_todos(request):
     if (request.method == "GET"):
@@ -33,6 +36,36 @@ def get_all_todos(request):
             return Response("sucessfully added", status=status.HTTP_201_CREATED)
         except KeyError as e:
             return Response(f"provide valid field: {e}")
+
+
+@api_view(['PUT','DELETE'])
+def modify_todo(request, pk):
+    if (request.method == "DELETE"):
+        try:
+            data = Todo.objects.get(pk=pk)
+            data.delete()
+            return Response("Todo sucessfully deleted")
+        except Todo.DoesNotExist as e:
+            return Response("sorry todo does not exist, provide valid id", status=status.HTTP_400_BAD_REQUEST)
+    elif(request.method == "PUT"):
+        try:
+            def get(item):
+                return request.data[item]
+            title = get("title")
+            body = get("body")
+            done = get("done")
+            pause = get("pause")
+            data = Todo.objects.get(pk=pk)
+            data.title = title
+            data.body = body
+            data.done = done
+            data.pause = pause
+            data.save()
+            return Response("todo updated sucessfully", status=status.HTTP_200_OK)
+        except KeyError as e:
+            return Response(f"please provide field: {e}", status=status.HTTP_428_PRECONDITION_REQUIRED)
+        except Todo.DoesNotExist as e:
+            return Response("todo does not exist, please provide valid id", status=status.HTTP_404_NOT_FOUND)
 
 # this is the configuration for the projects section request handling
 @api_view(['GET', 'POST'])
@@ -77,17 +110,3 @@ def modify_projects(request, id):
             return Response(f"project does not exist, provide valid id", status=status.HTTP_404_NOT_FOUND)
 
 
-@api_view(['PUT','DELETE'])
-def modify_todo(request, pk):
-    if (request.method == "DELETE"):
-        try:
-            data = Todo.objects.get(pk=pk)
-            data.delete()
-            return Response("Todo sucessfully deleted")
-        except Todo.DoesNotExist as e:
-            return Response("sorry todo does not exist, provide valid id", status=status.HTTP_400_BAD_REQUEST)
-    elif(request.method == "PUT"):
-        try:
-            data = Todo.objects.get(pk=pk)
-        except Todo.DoesNotExist as e:
-            return Response("todo does not exist, please provide valid id", status=status.HTTP_404_NOT_FOUND)
