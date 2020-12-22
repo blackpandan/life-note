@@ -13,7 +13,7 @@ from .serializers import TodoSerializer, ProjectSerializer
 from .models import Todo, Project
 
 # views
-@api_view(['GET'])
+@api_view(['GET', 'POST'])
 def get_all_todos(request):
     if (request.method == "GET"):
         try:
@@ -28,6 +28,9 @@ def get_all_todos(request):
             body = request.data["body"]
             done = request.data["done"]
             pause = request.data["pause"]
+            data = Todo(title=title, body=body, done=done, pause=pause)
+            data.save()
+            return Response("sucessfully added", status=status.HTTP_201_CREATED)
         except KeyError as e:
             return Response(f"provide valid field: {e}")
 
