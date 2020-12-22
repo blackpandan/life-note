@@ -38,10 +38,10 @@ def get_all_projects(request):
             new.save()
             return Response("sucessfully added", status=status.HTTP_201_CREATED)
         except KeyError as e:
-            return Response(f"required field ==> {e}, is missing", status=status.HTTP_428_PRECONDITION_REQUIRED)
+            return Response(f"required fields is missing: {e}", status=status.HTTP_428_PRECONDITION_REQUIRED)
 
 
-@api_view(["PUT"])
+@api_view(["PUT", "DELETE"])
 def modify_projects(request, id):
     if (request.method == "PUT"):
         try:
@@ -56,6 +56,13 @@ def modify_projects(request, id):
             return Response(f"please provide {e} field", status=status.HTTP_428_PRECONDITION_REQUIRED)
         except Project.DoesNotExist as e:
             return Response(f"project does not exist, provide valid id", status=status.HTTP_404_NOT_FOUND)
+    elif(request.method == "DELETE"):
+        try:
+            project = Project.objects.get(pk=id)
+            project.delete()
+        except Project.DoesNotExist as e:
+            return Response(f"project does not exist, provide valid id", status=status.HTTP_404_NOT_FOUND)
+
 
 @api_view(['POST','PUT'])
 def delete_todo(request, pk):
