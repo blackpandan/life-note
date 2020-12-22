@@ -120,8 +120,8 @@ export default {
         }
         this.loading = true;
         let config = {
-          url: `http://localhost:8000/delete/todo/${pk}`,
-          method: "POST"
+          url: `http://localhost:8000/todos/modify/${pk}`,
+          method: "DELETE"
         }
         axios(config).then(res=>{
           console.log("deleted sucessfully")
@@ -163,7 +163,7 @@ export default {
   },
   created() {
     let config = {
-      url: "http://localhost:8000/todos-all",
+      url: "http://localhost:8000/todos/all",
       method: "GET"
     };
     console.log(config);
