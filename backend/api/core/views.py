@@ -79,9 +79,15 @@ def modify_projects(request, id):
 
 @api_view(['PUT','DELETE'])
 def modify_todo(request, pk):
-    try:
-        data = Todo.objects.get(pk=pk)
-        data.delete()
-        return Response("completed")
-    except:
-        return Response("sorry", status=status.HTTP_400_BAD_REQUEST)
+    if (request.method == "DELETE"):
+        try:
+            data = Todo.objects.get(pk=pk)
+            data.delete()
+            return Response("Todo sucessfully deleted")
+        except Todo.DoesNotExist as e:
+            return Response("sorry todo does not exist, provide valid id", status=status.HTTP_400_BAD_REQUEST)
+    elif(request.method == "PUT"):
+        try:
+            data = Todo.objects.get(pk=pk)
+        except Todo.DoesNotExist as e:
+            return Response("todo does not exist, please provide valid id", status=status.HTTP_404_NOT_FOUND)
