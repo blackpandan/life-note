@@ -23,7 +23,7 @@ def get_all_todos(request):
 
 # this is the configuration for the projects section request handling
 @api_view(['GET', 'POST'])
-def get_all_projects(request, id):
+def get_all_projects(request):
     if (request.method == "GET"):
         data = Project.objects.all()
         serial = ProjectSerializer(data, many=True)
@@ -46,8 +46,9 @@ def modify_projects(request, id):
         try:
             name = request.data['title']
             details = request.data['details']
-            time = request.data['time']
             model = Project.objects.get(pk=id)
+            model.title=name
+            model.details=details
             return Response("tested")
         except KeyError as e:
             return Response("please provide required field", status=status.HTTP_428_PRECONDITION_REQUIRED)
