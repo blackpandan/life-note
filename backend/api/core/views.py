@@ -66,7 +66,7 @@ def modify_projects(request, id):
 
 
 @api_view(['POST','PUT'])
-def delete_todo(request, pk):
+def modify_todo(request, pk):
     try:
         data = Todo.objects.get(pk=pk)
         data.delete()
