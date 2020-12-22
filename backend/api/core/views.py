@@ -60,6 +60,7 @@ def modify_projects(request, id):
         try:
             project = Project.objects.get(pk=id)
             project.delete()
+            return Response("sucessfully deleted", status=status.HTTP_200_OK)
         except Project.DoesNotExist as e:
             return Response(f"project does not exist, provide valid id", status=status.HTTP_404_NOT_FOUND)
 
