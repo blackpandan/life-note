@@ -37,7 +37,7 @@ projectsin(){
 },
 created(){
   let config = {
-    url : "http://localhost:8000/",
+    url : "http://localhost:8000/projects/all",
     method: "GET"
   };
 axios(config).then(res=>{
