@@ -15,12 +15,21 @@ from .models import Todo, Project
 # views
 @api_view(['GET'])
 def get_all_todos(request):
-    try:
-        data = Todo.objects.all()
-        serial = TodoSerializer(data, many=True)
-        return Response(serial.data)
-    except:
-        return Response(request, status=status.HTTP_400_BAD_REQUEST)
+    if (request.method == "GET"):
+        try:
+            data = Todo.objects.all()
+            serial = TodoSerializer(data, many=True)
+            return Response(serial.data)
+        except:
+            return Response(request, status=status.HTTP_400_BAD_REQUEST)
+    elif (request.method == "POST"):
+        try:
+            title = request.data["title"]
+            body = request.data["body"]
+            done = request.data["done"]
+            pause = request.data["pause"]
+        except KeyError as e:
+            return Response(f"provide valid field: {e}")
 
 # this is the configuration for the projects section request handling
 @api_view(['GET', 'POST'])
@@ -38,7 +47,7 @@ def get_all_projects(request):
             new.save()
             return Response("sucessfully added", status=status.HTTP_201_CREATED)
         except KeyError as e:
-            return Response(f"required fields is missing: {e}", status=status.HTTP_428_PRECONDITION_REQUIRED)
+            return Response(f"required field is missing: {e}", status=status.HTTP_428_PRECONDITION_REQUIRED)
 
 
 @api_view(["PUT", "DELETE"])
@@ -65,7 +74,7 @@ def modify_projects(request, id):
             return Response(f"project does not exist, provide valid id", status=status.HTTP_404_NOT_FOUND)
 
 
-@api_view(['POST','PUT'])
+@api_view(['PUT','DELETE'])
 def modify_todo(request, pk):
     try:
         data = Todo.objects.get(pk=pk)
