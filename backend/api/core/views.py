@@ -1,7 +1,6 @@
 # for django imports
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.db.models import ObjectDoesNotExist
 
 #for rest_framework imprts
 from rest_framework.decorators import api_view
