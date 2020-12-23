@@ -90,13 +90,21 @@ def get_all_projects(request):
 def modify_projects(request, id):
     if (request.method == "PUT"):
         try:
-            name = request.data['title']
-            details = request.data['details']
-            model = Project.objects.get(pk=id)
-            model.title=name
-            model.details=details
-            model.save()
-            return Response("tested")
+            update = request.data['update']
+            if update:
+                model = Project.objects.get(pk=id)
+                for i in range(len(update)):
+                    if("title" == update[i]):
+                        name = request.data['title']
+                        model.title = name
+                    elif("details" == update[i]):
+                        details = update[i]
+                        model.details = details
+                model.save()
+                return Response("sucessfully updated", status=status.HTTP_200_OK)
+            else:
+                return Response(f"please provide update field", status=status.HTTP_428_PRECONDITION_REQUIRED)
+            
         except KeyError as e:
             return Response(f"please provide {e} field", status=status.HTTP_428_PRECONDITION_REQUIRED)
         except Project.DoesNotExist as e:
