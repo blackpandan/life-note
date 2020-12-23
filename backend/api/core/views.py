@@ -70,20 +70,10 @@ def modify_todo(request, pk):
                         data.pause = pause
                         
                 data.save()
-                return Response("sucessfully updated", status = status.HTTP_200_OK)
+                return Response("todo updated sucessfully", status=status.HTTP_200_OK)
             else:
                 return Response("please provide update field", status = status.HTTP_428_PRECONDITION_REQUIRED)
-            # title = get("title")
-            # body = get("body")
-            # done = get("done")
-            # pause = get("pause")
-            # data = Todo.objects.get(pk=pk)
-            # data.title = title
-            # data.body = body
-            # data.done = done
-            # data.pause = pause
-            # data.save()
-            return Response("todo updated sucessfully", status=status.HTTP_200_OK)
+            
         except KeyError as e:
             return Response(f"please provide field: {e}", status=status.HTTP_428_PRECONDITION_REQUIRED)
         except Todo.DoesNotExist as e:
