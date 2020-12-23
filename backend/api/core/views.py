@@ -1,6 +1,7 @@
 # for django imports
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.contrib.auth.models import User
 
 #for rest_framework imprts
 from rest_framework.decorators import api_view
@@ -133,5 +134,7 @@ def modify_projects(request, id):
 # user authentication and requests handling
 @api_view(["POST"])
 def get_user_details(request):
-    token = request.data["Token"]
-    id = Token.objects.get()
+    token = request.data["token"]
+    user_id = Token.objects.get(key=token).user_id
+    details = User.objects.get(id=user_id)
+    return Response(details, status=status.HTTP_200_OK)
