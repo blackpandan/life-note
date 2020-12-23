@@ -51,16 +51,38 @@ def modify_todo(request, pk):
         try:
             def get(item):
                 return request.data[item]
-            title = get("title")
-            body = get("body")
-            done = get("done")
-            pause = get("pause")
-            data = Todo.objects.get(pk=pk)
-            data.title = title
-            data.body = body
-            data.done = done
-            data.pause = pause
-            data.save()
+            update = get("update")
+            if update:
+                data = Todo.objects.get(pk=pk)
+                for i in range(len(update)):
+                    if ("title" == update[i]):
+                        title = get("title")
+                        data.title = title
+                    elif ("body" == update[i]):
+                        body = get("body")
+                        data.body = body
+                    elif ("done" == update[i]):
+                        done = request.data["done"]
+                        data.done = done
+                    elif ("pause" == update[i]):
+                        pause = request.data["pause"]
+                        print(f"pause: {pause}")
+                        data.pause = pause
+                        
+                data.save()
+                return Response("sucessfully updated", status = status.HTTP_200_OK)
+            else:
+                return Response("please provide update field", status = status.HTTP_428_PRECONDITION_REQUIRED)
+            # title = get("title")
+            # body = get("body")
+            # done = get("done")
+            # pause = get("pause")
+            # data = Todo.objects.get(pk=pk)
+            # data.title = title
+            # data.body = body
+            # data.done = done
+            # data.pause = pause
+            # data.save()
             return Response("todo updated sucessfully", status=status.HTTP_200_OK)
         except KeyError as e:
             return Response(f"please provide field: {e}", status=status.HTTP_428_PRECONDITION_REQUIRED)
@@ -98,8 +120,8 @@ def modify_projects(request, id):
                         name = request.data['title']
                         model.title = name
                     elif("details" == update[i]):
-                        details = update[i]
-                        model.details = details
+                        details = request.data["details"]
+                        model.body = details
                 model.save()
                 return Response("sucessfully updated", status=status.HTTP_200_OK)
             else:
