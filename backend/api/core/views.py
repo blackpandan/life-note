@@ -140,3 +140,4 @@ def modify_projects(request, id):
             return Response(f"project does not exist, provide valid id", status=status.HTTP_404_NOT_FOUND)
 
 
+# user authentication and requests handling
