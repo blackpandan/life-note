@@ -6,6 +6,7 @@ from django.http import HttpResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.authtoken.models import Token
 
 #module imports
 from .serializers import TodoSerializer, ProjectSerializer
@@ -130,3 +131,7 @@ def modify_projects(request, id):
 
 
 # user authentication and requests handling
+@api_view(["POST"])
+def get_user_details(request):
+    token = request.data["Token"]
+    id = Token.objects.get()
