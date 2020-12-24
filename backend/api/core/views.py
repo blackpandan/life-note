@@ -149,3 +149,16 @@ def get_user_details(request):
         return Response("token is invalid, it does not exist", status=status.HTTP_404_NOT_FOUND)
     except User.DoesNotExist as e:
         return Response("sorry the user account does not exist or has been deleted", status=status.HTTP_404_NOT_FOUND)
+
+
+@api_view(["POST"])
+def register_user(request):
+    try:
+        def get(item):
+            return request.data[item]
+        email = get("email")
+        password = get("password")
+        User.objects.create_user(username=email, email=email, password=password)
+        return Response("Account was sucessfully created", status=status.HTTP_201_CREATED)
+    except KeyError as e:
+        return Response(f"please provide valid field: {e}", status=status.HTTP_428_PRECONDITION_REQUIRED)
