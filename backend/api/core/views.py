@@ -2,6 +2,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.models import User
+from django.db import IntegrityError
 
 #for rest_framework imprts
 from rest_framework.decorators import api_view
@@ -162,3 +163,5 @@ def register_user(request):
         return Response("Account was sucessfully created", status=status.HTTP_201_CREATED)
     except KeyError as e:
         return Response(f"please provide valid field: {e}", status=status.HTTP_428_PRECONDITION_REQUIRED)
+    except IntegrityError as e:
+        return Response(f"this email has already been registered", status=status.HTTP_406_NOT_ACCEPTABLE)
