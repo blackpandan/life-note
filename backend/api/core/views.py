@@ -10,7 +10,7 @@ from rest_framework import status
 from rest_framework.authtoken.models import Token
 
 #module imports
-from .serializers import TodoSerializer, ProjectSerializer
+from .serializers import TodoSerializer, ProjectSerializer, UserSerializer
 from .models import Todo, Project
 
 
@@ -134,7 +134,18 @@ def modify_projects(request, id):
 # user authentication and requests handling
 @api_view(["POST"])
 def get_user_details(request):
-    token = request.data["token"]
-    user_id = Token.objects.get(key=token).user_id
-    details = User.objects.get(id=user_id)
-    return Response(details, status=status.HTTP_200_OK)
+    try:
+        token = request.data["token"]
+        if token:
+            user_id = Token.objects.get(key=token).user_id
+            details = User.objects.get(id=user_id)
+            serial = UserSerializer(details)
+            return Response(serial.data, status=status.HTTP_200_OK)
+        else:
+            return Response("token field is empty", status=status.HTTP_428_PRECONDITION_REQUIRED)
+    except KeyError as e:
+        return Response("token is missing, please provide required field", status=status.HTTP_428_PRECONDITION_REQUIRED)
+    except Token.DoesNotExist as e:
+        return Response("token is invalid, it does not exist", status=status.HTTP_404_NOT_FOUND)
+    except User.DoesNotExist as e:
+        return Response("sorry the user account does not exist or has been deleted", status=status.HTTP_404_NOT_FOUND)
