@@ -155,15 +155,8 @@ def modify_projects(request, id):
 @permission_classes([IsAuthenticated])
 def get_user_details(request):
     try:
-        token_array = request.META.get("HTTP_AUTHORIZATION").split(' ')
-    except AttributeError as e:
-        return Response("Token Has To Be Added To Authorization Header", status=status.HTTP_417_EXPECTATION_FAILED)
-    # user_id = Token.objects.get(key=token_array[1]).user_id
-    try:
-        token = token_array[1]
-        if token:
-            user_id = Token.objects.get(key=token).user_id
-            details = User.objects.get(id=user_id)
+        details = request.user
+        if details:
             serial = UserSerializer(details)
             return Response(serial.data, status=status.HTTP_200_OK)
         else:
