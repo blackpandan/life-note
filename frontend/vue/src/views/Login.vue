@@ -8,9 +8,8 @@
       <v-divider></v-divider>
       <!-- For Login Form -->
       <v-form class="mt-6" ref="form" v-model="formValidity">
-        <v-text-field label="email" prepend-inner-icon="email" type="email" :rules="emailRules" v-model="email" outlined class="subtitle-2 tre" dense></v-text-field>
-        <v-text-field label="first name" prepend-inner-icon="person" class="mt-5 tre" outlined dense></v-text-field>
-        <v-text-field label="password" prepend-inner-icon="lock" :append-icon="passwordVisibility ? 'visibility' : 'visibility_off'" @click:append="passwordVisibility = !passwordVisibility" counter :rules="passwordRules" :type="passwordVisibility ? 'password' : 'text' " v-model="password" class="mt-5" outlined dense></v-text-field>
+        <v-text-field label="email" prepend-inner-icon="email" type="email" :rules="emailRules" v-model="email" outlined class="subtitle-2 tre mt-9" dense></v-text-field>
+        <v-text-field label="password" prepend-inner-icon="lock" :append-icon="passwordVisibility ? 'visibility' : 'visibility_off'" @click:append="passwordVisibility = !passwordVisibility" counter :rules="passwordRules" :type="passwordVisibility ? 'password' : 'text' " v-model="password" class="mt-3" outlined dense></v-text-field>
         <!-- for the login button-->
         <v-row justify="center" class="mt-2">
         <v-btn dark class="mt-2 purple accent-3 rounded-lg elevation-1" v-on:click="submitForm">
