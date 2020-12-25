@@ -176,8 +176,15 @@ def register_user(request):
             return request.data[item]
         email = get("email")
         password = get("password")
-        User.objects.create_user(username=email, email=email, password=password)
-        return Response("Account was sucessfully created", status=status.HTTP_201_CREATED)
+        r = email.find("@")
+        if r != -1:
+            if len(password) >= 6:
+                User.objects.create_user(username=email, email=email, password=password)
+                return Response("Account was sucessfully created", status=status.HTTP_201_CREATED)
+            else:
+                return Response("password is not up to 6 digits", status=status.HTTP_428_PRECONDITION_REQUIRED)
+        else:
+            return Response("email is invalid", status=status.HTTP_428_PRECONDITION_REQUIRED)
     except KeyError as e:
         return Response(f"please provide valid field: {e}", status=status.HTTP_428_PRECONDITION_REQUIRED)
     except IntegrityError as e:
