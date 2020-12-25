@@ -13,14 +13,16 @@ class Todo(models.Model):
     title=models.CharField(max_length=225)
     body=models.CharField(max_length=225)
     done=models.BooleanField(default=False)
-    pause=models.BooleanField(default=False)
     owner = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, default=None)
+    pause=models.BooleanField(default=False)
+    
 
 class Project(models.Model):
     title=models.CharField(max_length=255)
     body=models.TextField()
-    time = models.DateTimeField(auto_now_add=True)
     owner = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, default=None)
+    time = models.DateTimeField(auto_now_add=True)
+    
 
 
 # this is for the automatic token creation
