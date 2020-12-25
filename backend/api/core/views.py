@@ -27,19 +27,21 @@ from .models import Todo, Project
 def get_all_todos(request):
     if (request.method == "GET"):
         try:
-            data = Todo.objects.all()
+            user = request.user
+            data = Todo.objects.filter(owner=user)
             serial = TodoSerializer(data, many=True)
             return Response(serial.data)
         except:
             return Response(request, status=status.HTTP_400_BAD_REQUEST)
     elif (request.method == "POST"):
         try:
+            user = request.user
             title = request.data["title"]
             body = request.data["body"]
             done = request.data["done"]
             pause = request.data["pause"]
-            data = Todo(title=title, body=body, done=done, pause=pause)
-            # data.save()
+            data = Todo(title=title, body=body, done=done, owner=user, pause=pause)
+            data.save()
             return Response("sucessfully added", status=status.HTTP_201_CREATED)
         except KeyError as e:
             return Response(f"provide valid field: {e}")
