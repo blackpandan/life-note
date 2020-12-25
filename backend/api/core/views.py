@@ -9,6 +9,9 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.authtoken.models import Token
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import authentication_classes, permission_classes
+from rest_framework.authentication import TokenAuthentication
 
 #module imports
 from .serializers import TodoSerializer, ProjectSerializer, UserSerializer
@@ -19,6 +22,8 @@ from .models import Todo, Project
 
 #this is for the todo request handling configuration
 @api_view(['GET', 'POST'])
+@authentication_classes([TokenAuthentication])
+@permission_classes(IsAuthenticated)
 def get_all_todos(request):
     if (request.method == "GET"):
         try:
@@ -41,6 +46,8 @@ def get_all_todos(request):
 
 
 @api_view(['PUT','DELETE'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def modify_todo(request, pk):
     if (request.method == "DELETE"):
         try:
@@ -83,6 +90,8 @@ def modify_todo(request, pk):
 
 # this is the configuration for the projects section request handling
 @api_view(['GET', 'POST'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def get_all_projects(request):
     if (request.method == "GET"):
         data = Project.objects.all()
@@ -101,6 +110,8 @@ def get_all_projects(request):
 
 
 @api_view(["PUT", "DELETE"])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def modify_projects(request, id):
     if (request.method == "PUT"):
         try:
@@ -134,9 +145,16 @@ def modify_projects(request, id):
 
 # user authentication and requests handling
 @api_view(["POST"])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def get_user_details(request):
     try:
-        token = request.data["token"]
+        token_array = request.META.get("HTTP_AUTHORIZATION").split(' ')
+    except AttributeError as e:
+        return Response("Token Has To Be Added To Authorization Header", status=status.HTTP_417_EXPECTATION_FAILED)
+    # user_id = Token.objects.get(key=token_array[1]).user_id
+    try:
+        token = token_array[1]
         if token:
             user_id = Token.objects.get(key=token).user_id
             details = User.objects.get(id=user_id)
