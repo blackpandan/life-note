@@ -13,14 +13,14 @@ class Todo(models.Model):
     title=models.CharField(max_length=225)
     body=models.CharField(max_length=225)
     done=models.BooleanField(default=False)
-    owner = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, default=None)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
     pause=models.BooleanField(default=False)
     
 
 class Project(models.Model):
     title=models.CharField(max_length=255)
     body=models.TextField()
-    owner = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, default=None)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
     time = models.DateTimeField(auto_now_add=True)
     
 
