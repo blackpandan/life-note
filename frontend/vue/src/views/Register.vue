@@ -5,7 +5,7 @@
       <v-subheader class="subtitle-1 ml-0 pl-0 font-weight-bold">
          Register Your Account
       </v-subheader>
-
+  <p>{{token}}</p>
       <v-divider></v-divider>
       <!-- For Login Form -->
       <v-form class="mt-6" ref="form" v-model="formValidity">
@@ -37,6 +37,7 @@ data(){
     email:"",
     first_name:"",
     password: "",
+    token: localStorage.getItem("token"),
     snackbar: false,
     message: "",
     timeout: 2000
@@ -50,7 +51,7 @@ methods: {
       data: {
         "email": this.email,
         "first_name": this.first_name,
-        "password": this.password
+        "password": this.password,
       }
     };
     
@@ -58,9 +59,22 @@ methods: {
       console.log(res);
       this.snackbar = true;
       this.message = "account sucessfully created"
+      
       var config = {
-        url: "http://127.0.0.1:8000/auth/token"
-      }
+        url: "http://127.0.0.1:8000/auth/token",
+        method: "POST",
+        data: {
+          "username": this.email,
+          "password": this.password
+        }
+      };
+
+      axios(config).then(res=>{
+        localStorage.setItem("token", res.data.token)
+        this.token = res.data.token;
+        console.log(res)
+        setTimeout(()=>{this.$router.push("/login")}, 2000)
+      })
     }).catch(err=>{
       this.snackbar = true;
       this.message = `${err.message}`
