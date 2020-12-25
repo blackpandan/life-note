@@ -23,7 +23,7 @@ from .models import Todo, Project
 #this is for the todo request handling configuration
 @api_view(['GET', 'POST'])
 @authentication_classes([TokenAuthentication])
-@permission_classes(IsAuthenticated)
+@permission_classes([IsAuthenticated])
 def get_all_todos(request):
     if (request.method == "GET"):
         try:
@@ -39,7 +39,7 @@ def get_all_todos(request):
             done = request.data["done"]
             pause = request.data["pause"]
             data = Todo(title=title, body=body, done=done, pause=pause)
-            data.save()
+            # data.save()
             return Response("sucessfully added", status=status.HTTP_201_CREATED)
         except KeyError as e:
             return Response(f"provide valid field: {e}")
@@ -101,9 +101,11 @@ def get_all_projects(request):
         try:
             name = request.data['title']
             details = request.data['details']
-            new = Project(title=name, body=details)
+            new = Project(title=name, body=details, owner=request.user)
             # serial = ProjectSerializer(new)
             new.save()
+            # user = request.user
+            # se = UserSerializer(user) 
             return Response("sucessfully added", status=status.HTTP_201_CREATED)
         except KeyError as e:
             return Response(f"required field is missing: {e}", status=status.HTTP_428_PRECONDITION_REQUIRED)
