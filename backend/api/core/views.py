@@ -101,7 +101,7 @@ def get_all_projects(request):
         try:
             name = request.data['title']
             details = request.data['details']
-            new = Project(title=name, body=details, owner=request.user)
+            new = Project(title=name, body=details)
             # serial = ProjectSerializer(new)
             new.save()
             # user = request.user
