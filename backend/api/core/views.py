@@ -94,7 +94,9 @@ def modify_todo(request, pk):
 @permission_classes([IsAuthenticated])
 def get_all_projects(request):
     if (request.method == "GET"):
-        data = Project.objects.all()
+        user = request.user
+        # print(user)
+        data = Project.objects.filter(owner=user)
         serial = ProjectSerializer(data, many=True)
         return Response(serial.data)
     elif(request.method == 'POST'):
