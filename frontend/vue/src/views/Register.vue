@@ -1,5 +1,6 @@
 <template>
   <div >
+    <v-snackbar v-model="snackbar" :timeout="timeout" color="success" absolute top>{{ message }}</v-snackbar>
     <v-card class="pa-6 pb-10 pt-10 ma-auto mt-5" width="30em" elevation="4">
       <v-subheader class="subtitle-1 ml-0 pl-0 font-weight-bold">
          Register Your Account
@@ -29,16 +30,45 @@
 </template>
 
 <script>
+var axios = require('axios');
 export default {
 data(){
   return {
     email:"",
     first_name:"",
-    password: ""
+    password: "",
+    snackbar: false,
+    message: "",
+    timeout: 2000
   }
 },
 methods: {
+  submitForm(){
+    var config = {
+      url: "http://127.0.0.1:8000/user/auth/register",
+      method: "POST",
+      data: {
+        "email": this.email,
+        "first_name": this.first_name,
+        "password": this.password
+      }
+    };
+    
+    axios(config).then(res=>{
+      console.log(res);
+      this.snackbar = true;
+      this.message = "account sucessfully created"
+      var config = {
+        url: "http://127.0.0.1:8000/auth/token"
+      }
+    }).catch(err=>{
+      this.snackbar = true;
+      this.message = `${err.message}`
+      console.log("eish")
+      console.log(err)
+    });
 
+  }
 }
 }
 </script>
