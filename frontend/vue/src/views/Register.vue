@@ -5,7 +5,6 @@
       <v-subheader class="subtitle-1 ml-0 pl-0 font-weight-bold">
          Register Your Account
       </v-subheader>
-  <p>{{token}}</p>
       <v-divider></v-divider>
       <!-- For Login Form -->
       <v-form class="mt-6" ref="form" v-model="formValidity">
