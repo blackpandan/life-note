@@ -36,15 +36,27 @@ projectsin(){
 }
 },
 created(){
+  let token = localStorage.getItem("token");
   let config = {
     url : "http://localhost:8000/projects/all",
-    method: "GET"
+    method: "GET",
+    headers: {
+      authorization:`Token ${token}`
+    }
   };
 axios(config).then(res=>{
   this.projects = res.data
 }).catch(err=>{
   console.log(`this is the error : ${err}`)
 });
+},
+beforeMount(){
+  let token = localStorage.getItem("token");
+  if (token != null){
+    console.log("heheheeh");
+  }else{
+    this.$router.push("/login")
+  }
 }
 }
 </script>

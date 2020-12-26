@@ -1,5 +1,6 @@
 <template>
   <div >
+    <v-snackbar v-model="snackbar" :color="color" absolute top >{{message}}</v-snackbar>
     <v-card class="pa-6 pb-10 pt-10 ma-auto mt-5" width="30em" elevation="4">
       <v-subheader class="subtitle-1 ml-0 pl-0 font-weight-bold">
         Login To Your Account
@@ -27,6 +28,7 @@
 </template>
 
 <script>
+var axios = require('axios');
 export default {
 data(){
   return {
@@ -43,6 +45,9 @@ data(){
     ],
     email: "",
     password: "",
+    snackbar: false,
+    message: "",
+    color: ""
     }
   },
   methods: {
@@ -51,8 +56,51 @@ data(){
       console.log("started")
     this.formValidity = this.$refs.form.validate();
       if(this.formValidity == true){
-        console.log(`email: ${this.email}`)
-        console.log(`password: ${this.password}`)
+
+        var link = "http://127.0.0.1:8000/auth/token";
+
+        var config = {
+          url: link,
+          method: "POST",
+          data: {
+            username: this.email,
+            password: this.password
+          } 
+        }
+
+        axios(config).then(res=>{
+          console.log("yeah")
+          console.log(res.data)
+          let token = res.data.token;
+          let link = "http://127.0.0.1:8000/user/auth/details"
+          let config = {
+            url: link,
+            method: "POST",
+            headers: {
+              authorization: `Token ${token}`
+            }
+          }
+            axios(config).then(res=>{
+              console.log(res.data);
+              this.message = "login sucessfully";
+              this.color = "success";
+              this.snackbar = true;
+              this.$router.push("/home")
+            }).catch(err=>{
+              console.log("shit happens")
+              console.log(err.response.data.non_field_errors)
+              this.message = "login failed check details"
+              this.color = "error";
+              this.snackbar = true;
+            })
+        }).catch(err=>{
+          console.log("nawaooooo");
+          console.log(err);
+          this.message = err.response.data.non_field_errors[0];
+          this.color = "error";
+          this.snackbar = true;
+        })
+
       }else{
         console.log("failure")
       }
