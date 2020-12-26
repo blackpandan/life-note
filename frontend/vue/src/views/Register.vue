@@ -76,7 +76,7 @@ methods: {
       })
     }).catch(err=>{
       this.snackbar = true;
-      this.message = `${err.message}`
+      this.message = `${err.response.data}`
       console.log("eish")
       console.log(err)
     });
