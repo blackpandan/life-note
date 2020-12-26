@@ -162,20 +162,33 @@ export default {
   }
   },
   created() {
+    let token = localStorage.getItem("token");
     let config = {
       url: "http://localhost:8000/todos/all",
-      method: "GET"
+      method: "GET",
+      headers: {
+        authorization: `Token ${token}`
+      }
     };
     console.log(config);
     
     axios(config).then(res=>{
       this.projects = res.data;
-      console.log(res);
+      console.log(res.data);
+      console.log("nawaoo")
       console.log(this.projects)
     }).catch(err=>{
       console.log(err);
     })
 
+  },
+  beforeMount() {
+    let token = localStorage.getItem("token");
+    if (token != null){
+      console.log("hehehe")
+    }else{
+      this.$router.push("/login")
+    }
   }
 };
 </script>
