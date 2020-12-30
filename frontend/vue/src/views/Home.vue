@@ -33,9 +33,9 @@
               <v-form>
                 <v-container fluid>
                   <!-- <v-select :items="items" label="type" dense solo prepend-icon="event" flat></v-select> -->
-                  <v-text-field label="title"></v-text-field>
-                  <v-textarea rows="3" label="description"></v-textarea>
-                  <v-btn small dark class="purple accent-3" v-on:click="submitAdd()">
+                  <v-text-field label="title" v-model="title"></v-text-field>
+                  <v-textarea rows="3" label="description" v-model="desc"></v-textarea>
+                  <v-btn small dark class="purple accent-3" v-on:click="submitAdd()" :loading="load">
                     <span>submit</span>
                   </v-btn>
                 </v-container>
@@ -104,7 +104,10 @@ export default {
       loading: false,
       projects:[ 
         
-      ]
+      ],
+      title: "",
+      desc: "",
+      load: false
     };
   },
   methods:{
@@ -161,13 +164,37 @@ export default {
     
   },
   submitAdd(){
+    this.load = true;
+    let token = localStorage.getItem("token_lifenote")
+    let config = {
+      url: "http://localhost:8000/todos/all",
+      method: "POST",
+      data: {
+        "title":this.title,
+        "body":this.desc,
+        "done":false,
+        "pause":false
+      },
+      headers: {
+        authorization: `Token ${token}`
+      }
+    };
+    axios(config).then(res=>{
+      console.log(res)
+      this.load = false
+      this.dialog = false
+      this.$router.push("/")
+    }).catch(err=>{
+      console.log(err)
+      this.load = false
+    })
     
   }
   },
   created() {
     let token = localStorage.getItem("token_lifenote");
     let config = {
-      url: "https://lifenote-api.herokuapp.com/todos/all",
+      url: "http://localhost:8000/todos/all",
       method: "GET",
       headers: {
         authorization: `Token ${token}`
