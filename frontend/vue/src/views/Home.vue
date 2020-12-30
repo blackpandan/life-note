@@ -32,10 +32,10 @@
             <v-card>
               <v-form>
                 <v-container fluid>
-                  <v-select :items="items" label="type" dense solo prepend-icon="event" flat></v-select>
+                  <!-- <v-select :items="items" label="type" dense solo prepend-icon="event" flat></v-select> -->
                   <v-text-field label="title"></v-text-field>
                   <v-textarea rows="3" label="description"></v-textarea>
-                  <v-btn small dark class="purple accent-3">
+                  <v-btn small dark class="purple accent-3" v-on:click="submitAdd()">
                     <span>submit</span>
                   </v-btn>
                 </v-container>
@@ -158,6 +158,9 @@ export default {
       return true
     }
       return false
+    
+  },
+  submitAdd(){
     
   }
   },
