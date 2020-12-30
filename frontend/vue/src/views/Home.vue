@@ -128,9 +128,13 @@ export default {
         }
         }
         this.loading = true;
+        let token = localStorage.getItem("token_lifenote")
         let config = {
           url: `https://lifenote-api.herokuapp.com/todos/modify/${pk}`,
-          method: "DELETE"
+          method: "DELETE",
+          headers: {
+            authorization: `Token ${token}`
+          }
         }
         axios(config).then(res=>{
           console.log("deleted sucessfully")
