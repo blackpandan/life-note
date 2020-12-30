@@ -173,7 +173,7 @@ export default {
     this.load = true;
     let token = localStorage.getItem("token_lifenote")
     let config = {
-      url: "https://lifenote-api.herokuapp.com/life/todos/all",
+      url: "https://lifenote-api.herokuapp.com/todos/all",
       method: "POST",
       data: {
         "title":this.title,
