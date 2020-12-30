@@ -36,7 +36,7 @@ data(){
     email:"",
     first_name:"",
     password: "",
-    token: localStorage.getItem("token"),
+    token: localStorage.getItem("token_lifenote"),
     snackbar: false,
     message: "",
     timeout: 2000
@@ -69,7 +69,7 @@ methods: {
       };
 
       axios(config).then(res=>{
-        localStorage.setItem("token", res.data.token)
+        localStorage.setItem("token_lifenote", res.data.token)
         this.token = res.data.token;
         console.log(res)
         setTimeout(()=>{this.$router.push("/login")}, 2000)
