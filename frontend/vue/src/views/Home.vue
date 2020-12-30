@@ -162,7 +162,7 @@ export default {
   }
   },
   created() {
-    let token = localStorage.getItem("token");
+    let token = localStorage.getItem("token_lifenote");
     let config = {
       url: "http://localhost:8000/todos/all",
       method: "GET",
@@ -183,7 +183,7 @@ export default {
 
   },
   beforeMount() {
-    let token = localStorage.getItem("token");
+    let token = localStorage.getItem("token_lifenote");
     if (token != null){
       console.log("hehehe")
     }else{

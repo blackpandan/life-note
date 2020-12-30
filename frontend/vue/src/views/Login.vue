@@ -72,6 +72,10 @@ data(){
           console.log("yeah")
           console.log(res.data)
           let token = res.data.token;
+          if (token != null){
+            localStorage.setItem("token_lifenote", token);
+            localStorage.setItem("isAuthenticated_lifenote", true);
+          }
           let link = "http://127.0.0.1:8000/user/auth/details"
           let config = {
             url: link,
@@ -85,7 +89,7 @@ data(){
               this.message = "login sucessfully";
               this.color = "success";
               this.snackbar = true;
-              this.$router.push("/home")
+              this.$router.push("/")
             }).catch(err=>{
               console.log("shit happens")
               console.log(err.response.data.non_field_errors)
