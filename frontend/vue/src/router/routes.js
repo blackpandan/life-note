@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import Projects from '../views/Projects.vue'
+import Logout from '../views/Logout.vue'
 
 Vue.use(VueRouter)
 
@@ -35,6 +36,11 @@ const routes = [
     path: "/projects",
     name: "projects",
     component: Projects
+  },
+  {
+    path: "/logout",
+    name: "logout",
+    component: Logout
   }
 ]
 
