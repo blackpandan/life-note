@@ -26,6 +26,7 @@ SECRET_KEY = '^$$d3scvqb0-3%p2+qz5ib!4cr%!@o@1hmp8**+(gjy**_$%%2'
 DEBUG = True
 
 ALLOWED_HOSTS = [
+    'localhost',
     'lifenote-api.herokuapp.com',
     'lifelog.tk',
     'lifebookpro.netlify.app'
