@@ -1,6 +1,10 @@
 <template>
   <div>
     <h1 class="subtitle-1 grey--text text--darken-1">Welcome!</h1>
+    <!-- snackbar for dialog -->
+    <v-snackbar top absolute color="error" v-model="error_snack">
+      {{error_msg}}
+    </v-snackbar>
 
     <!-- Action Panel -->
     <div>
@@ -107,7 +111,9 @@ export default {
       ],
       title: "",
       desc: "",
-      load: false
+      load: false,
+      error_snack: false,
+      error_msg: ""
     };
   },
   methods:{
@@ -187,6 +193,8 @@ export default {
     }).catch(err=>{
       console.log(err)
       this.load = false
+      this.error_msg = "Error adding todo"
+      this.error_snack = true
     })
     
   }
