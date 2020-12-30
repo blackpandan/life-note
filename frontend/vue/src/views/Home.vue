@@ -1,6 +1,10 @@
 <template>
   <div>
     <h1 class="subtitle-1 grey--text text--darken-1">Welcome!</h1>
+    <!-- snackbar for dialog -->
+    <v-snackbar top absolute color="error" v-model="error_snack">
+      {{error_msg}}
+    </v-snackbar>
 
     <!-- Action Panel -->
     <div>
@@ -32,10 +36,10 @@
             <v-card>
               <v-form>
                 <v-container fluid>
-                  <v-select :items="items" label="type" dense solo prepend-icon="event" flat></v-select>
-                  <v-text-field label="title"></v-text-field>
-                  <v-textarea rows="3" label="description"></v-textarea>
-                  <v-btn small dark class="purple accent-3">
+                  <!-- <v-select :items="items" label="type" dense solo prepend-icon="event" flat></v-select> -->
+                  <v-text-field label="title" v-model="title"></v-text-field>
+                  <v-textarea rows="3" label="description" v-model="desc"></v-textarea>
+                  <v-btn small dark class="purple accent-3" v-on:click="submitAdd()" :loading="load">
                     <span>submit</span>
                   </v-btn>
                 </v-container>
@@ -104,7 +108,12 @@ export default {
       loading: false,
       projects:[ 
         
-      ]
+      ],
+      title: "",
+      desc: "",
+      load: false,
+      error_snack: false,
+      error_msg: ""
     };
   },
   methods:{
@@ -158,6 +167,35 @@ export default {
       return true
     }
       return false
+    
+  },
+  submitAdd(){
+    this.load = true;
+    let token = localStorage.getItem("token_lifenote")
+    let config = {
+      url: "https://lifenote-api.herokuapp.com/life/todos/all",
+      method: "POST",
+      data: {
+        "title":this.title,
+        "body":this.desc,
+        "done":false,
+        "pause":false
+      },
+      headers: {
+        authorization: `Token ${token}`
+      }
+    };
+    axios(config).then(res=>{
+      console.log(res)
+      this.load = false
+      this.dialog = false
+      this.$router.push("/")
+    }).catch(err=>{
+      console.log(err)
+      this.load = false
+      this.error_msg = "Error adding todo"
+      this.error_snack = true
+    })
     
   }
   },
