@@ -129,7 +129,7 @@ export default {
         }
         this.loading = true;
         let config = {
-          url: `http://localhost:8000/todos/modify/${pk}`,
+          url: `https://lifenote-api.herokuapp.com/todos/modify/${pk}`,
           method: "DELETE"
         }
         axios(config).then(res=>{
@@ -189,7 +189,7 @@ export default {
       console.log(res)
       this.load = false
       this.dialog = false
-      this.$router.push("/")
+      this.$router.push("/login")
     }).catch(err=>{
       console.log(err)
       this.load = false
