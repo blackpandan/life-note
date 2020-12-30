@@ -73,7 +73,9 @@ data(){
           console.log(res.data)
           let token = res.data.token;
           if (token != null){
+            localStorage.removeItem("token_lifenote")
             localStorage.setItem("token_lifenote", token);
+            localStorage.removeItem("isAuthenticated_lifenote")
             localStorage.setItem("isAuthenticated_lifenote", true);
           }
           let link = "http://127.0.0.1:8000/user/auth/details"

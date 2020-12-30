@@ -36,7 +36,7 @@ projectsin(){
 }
 },
 created(){
-  let token = localStorage.getItem("token");
+  let token = localStorage.getItem("token_lifenote");
   let config = {
     url : "http://localhost:8000/projects/all",
     method: "GET",
@@ -51,9 +51,9 @@ axios(config).then(res=>{
 });
 },
 beforeMount(){
-  let token = localStorage.getItem("token");
+  let token = localStorage.getItem("token_lifenote");
   if (token != null){
-    console.log("heheheeh");
+    console.log("hehh");
   }else{
     this.$router.push("/login")
   }
