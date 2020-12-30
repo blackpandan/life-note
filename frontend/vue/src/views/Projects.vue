@@ -38,7 +38,7 @@ projectsin(){
 created(){
   let token = localStorage.getItem("token");
   let config = {
-    url : "http://localhost:8000/projects/all",
+    url : "https://lifenote-api.herokuapp.com/projects/all",
     method: "GET",
     headers: {
       authorization:`Token ${token}`
