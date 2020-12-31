@@ -50,7 +50,7 @@
       </v-card>
 
       <!-- Activity Area-->
-      <v-expansion-panels focusable class="mt-9">
+      <v-expansion-panels focusable class="mt-9" >
         <!--Model For Ongoing Activity-->
         <v-expansion-panel v-for="(project, i) in projects" :key="i" :class="{'topExpansionPanel': i==0, 'pause':project.pause, 'complete':project.done}" >
           
@@ -130,7 +130,7 @@ export default {
         this.loading = true;
         let token = localStorage.getItem("token_lifenote")
         let config = {
-          url: `https://lifenote-api.herokuapp.com/todos/modify/${pk}`,
+          url: `http://127.0.0.1:8000/todos/modify/${pk}`,
           method: "DELETE",
           headers: {
             authorization: `Token ${token}`
@@ -173,40 +173,10 @@ export default {
       return false
     
   },
-  submitAdd(){
-    this.load = true;
-    let token = localStorage.getItem("token_lifenote")
+  getProds(){
+     let token = localStorage.getItem("token_lifenote");
     let config = {
-      url: "https://lifenote-api.herokuapp.com/todos/all",
-      method: "POST",
-      data: {
-        "title":this.title,
-        "body":this.desc,
-        "done":false,
-        "pause":false
-      },
-      headers: {
-        authorization: `Token ${token}`
-      }
-    };
-    axios(config).then(res=>{
-      console.log(res)
-      this.load = false
-      this.dialog = false
-      this.$router.push("/")
-    }).catch(err=>{
-      console.log(err)
-      this.load = false
-      this.error_msg = "Error adding todo"
-      this.error_snack = true
-    })
-    
-  }
-  },
-  created() {
-    let token = localStorage.getItem("token_lifenote");
-    let config = {
-      url: "https://lifenote-api.herokuapp.com/todos/all",
+      url: "http://127.0.0.1:8000/todos/all",
       method: "GET",
       headers: {
         authorization: `Token ${token}`
@@ -222,6 +192,41 @@ export default {
     }).catch(err=>{
       console.log(err);
     })
+  },
+  submitAdd(){
+    this.load = true;
+    let token = localStorage.getItem("token_lifenote")
+    let config = {
+      url: "http://127.0.0.1:8000/todos/all",
+      method: "POST",
+      data: {
+        "title":this.title,
+        "body":this.desc,
+        "done":false,
+        "pause":false
+      },
+      headers: {
+        authorization: `Token ${token}`
+      }
+    };
+    axios(config).then(res=>{
+      console.log(res);
+      this.load = false;
+      this.getProds();
+      this.dialog = false;
+      
+      // this.$router.push("/")
+    }).catch(err=>{
+      console.log(err);
+      this.load = false;
+      this.error_msg = "Error adding todo";
+      this.error_snack = true;
+    })
+    
+  }
+  },
+  created() {
+  this.getProds();
 
   },
   beforeMount() {
