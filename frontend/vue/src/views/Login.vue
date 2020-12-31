@@ -57,7 +57,7 @@ data(){
     this.formValidity = this.$refs.form.validate();
       if(this.formValidity == true){
 
-        var link = "https://lifenote-api.herokuapp.com/auth/token";
+        var link = "http://127.0.0.1:8000/auth/token";
 
         var config = {
           url: link,
@@ -78,7 +78,7 @@ data(){
             localStorage.removeItem("isAuthenticated_lifenote")
             localStorage.setItem("isAuthenticated_lifenote", true);
           }
-          let link = "https://lifenote-api.herokuapp.com/user/auth/details"
+          let link = "http://127.0.0.1:8000/user/auth/details"
           let config = {
             url: link,
             method: "POST",
@@ -91,7 +91,8 @@ data(){
               this.message = "login sucessfully";
               this.color = "success";
               this.snackbar = true;
-              this.$router.push("/")
+              this.$emit("recant");
+              this.$router.push("/");
             }).catch(err=>{
               console.log("shit happens")
               console.log(err.response.data.non_field_errors)
