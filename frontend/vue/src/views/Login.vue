@@ -91,7 +91,8 @@ data(){
               this.message = "login sucessfully";
               this.color = "success";
               this.snackbar = true;
-              this.$router.push("/")
+              this.$emit("recant");
+              this.$router.push("/");
             }).catch(err=>{
               console.log("shit happens")
               console.log(err.response.data.non_field_errors)
