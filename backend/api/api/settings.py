@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'localhost',
+    '127.0.0.1',
     'lifenote-api.herokuapp.com',
     'lifelog.tk',
     'lifebookpro.netlify.app'
