@@ -193,7 +193,7 @@ export default {
       console.log(res)
       this.load = false
       this.dialog = false
-      this.$router.push("/login")
+      this.$router.push("/")
     }).catch(err=>{
       console.log(err)
       this.load = false
