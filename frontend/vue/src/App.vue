@@ -1,10 +1,10 @@
 <template>
  <v-app>
-   <NavBar />
+   <NavBar :key="lets"/>
 
    <v-main>
      <v-container fluid class="pa-5">
-       <router-view></router-view>
+       <router-view v-on:recant="recants()"></router-view>
      </v-container>
    </v-main>
  </v-app>
@@ -21,8 +21,14 @@ export default {
   },
 
   data: () => ({
-    //
-  }),
+    lets : 0
+  }
+  ),
+  methods: {
+    recants(){
+      this.lets += 1;
+    }
+  }
 };
 </script>
 <style>
